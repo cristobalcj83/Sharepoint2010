@@ -17,6 +17,10 @@ Copy these into `lib/sp2010`:
 
 1. Open `src/SharePoint2010Migration.Web/SharePoint2010Migration.Web.csproj` in Visual Studio.
 2. Restore NuGet packages.
-3. Update `Web.config` values.
-4. Run SQL script in your target database.
-5. Start app and open `/Migrate/Index`.
+3. Run SQL script in your target database.
+4. Start app and open `/Admin/Index`.
+5. In Admin Settings, configure:
+   - SharePoint CSOM DLL absolute paths
+   - Site URL + Library title
+   - Domain, user, and password
+6. Save settings, then open `/Migrate/Index` and run migration.

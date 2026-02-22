@@ -1,0 +1,58 @@
+@model SharePoint2010Migration.Web.Models.AdminSettingsModel
+@{
+    ViewBag.Title = "Admin Settings";
+}
+
+<h2>Admin Settings</h2>
+<p>Configure SharePoint DLL paths, library connection and credentials used by migration defaults.</p>
+<p><a href="@Url.Action("Index", "Migrate")">Go to Migration page</a></p>
+
+@if (ViewBag.Message != null)
+{
+    <p style="color: green;">@ViewBag.Message</p>
+}
+
+@using (Html.BeginForm("Save", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <label>SharePoint Client DLL Path</label><br />
+        @Html.TextBoxFor(m => m.SharePointClientDllPath, new { style = "width: 720px" })
+        <div>Found: @(Model.IsClientDllFound ? "Yes" : "No")</div>
+    </div>
+
+    <div>
+        <label>SharePoint Runtime DLL Path</label><br />
+        @Html.TextBoxFor(m => m.SharePointRuntimeDllPath, new { style = "width: 720px" })
+        <div>Found: @(Model.IsRuntimeDllFound ? "Yes" : "No")</div>
+    </div>
+
+    <div>
+        <label>SharePoint Site URL</label><br />
+        @Html.TextBoxFor(m => m.SiteUrl, new { style = "width: 520px" })
+    </div>
+
+    <div>
+        <label>Library Title</label><br />
+        @Html.TextBoxFor(m => m.LibraryTitle, new { style = "width: 520px" })
+    </div>
+
+    <div>
+        <label>Domain</label><br />
+        @Html.TextBoxFor(m => m.Domain, new { style = "width: 280px" })
+    </div>
+
+    <div>
+        <label>User</label><br />
+        @Html.TextBoxFor(m => m.UserName, new { style = "width: 280px" })
+    </div>
+
+    <div>
+        <label>Password</label><br />
+        @Html.PasswordFor(m => m.Password, new { style = "width: 280px" })
+    </div>
+
+    <br />
+    <button type="submit">Save Settings</button>
+}

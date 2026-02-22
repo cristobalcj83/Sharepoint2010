@@ -19,6 +19,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc" />
     <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.SharePoint.Client">
       <HintPath>..\..\lib\sp2010\Microsoft.SharePoint.Client.dll</HintPath>
@@ -31,9 +32,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\MigrateController.cs" />
+    <Compile Include="Models\AdminSettingsModel.cs" />
     <Compile Include="Models\MigrationRunRequest.cs" />
     <Compile Include="Models\MigrationRunResult.cs" />
+    <Compile Include="Services\AdminSettingsService.cs" />
     <Compile Include="Services\DocumentRepository.cs" />
     <Compile Include="Services\MigrationConfiguration.cs" />
     <Compile Include="Services\SharePointDocumentMigrator.cs" />
@@ -44,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Migrate\Index.cshtml" />
     <Content Include="Web.config" />
     <None Include="packages.config" />
