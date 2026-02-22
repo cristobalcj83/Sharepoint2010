@@ -1,0 +1,74 @@
+@model SharePoint2010Migration.Web.Models.MigrationRunRequest
+@{
+    ViewBag.Title = "SharePoint 2010 Document Migration";
+    var result = ViewBag.Result as SharePoint2010Migration.Web.Models.MigrationRunResult;
+    var adminSettings = ViewBag.AdminSettings as SharePoint2010Migration.Web.Models.AdminSettingsModel;
+}
+
+<h2>SharePoint 2010 Document Migration</h2>
+<p><a href="@Url.Action("Index", "Admin")">Admin Settings</a></p>
+
+@if (adminSettings != null)
+{
+    <div style="border: 1px solid #ccc; padding: 8px; margin-bottom: 14px;">
+        <strong>Current Admin Profile</strong>
+        <ul>
+            <li>Site URL: @adminSettings.SiteUrl</li>
+            <li>Library: @adminSettings.LibraryTitle</li>
+            <li>Domain/User: @adminSettings.Domain\@adminSettings.UserName</li>
+            <li>Client DLL Found: @(adminSettings.IsClientDllFound ? "Yes" : "No")</li>
+            <li>Runtime DLL Found: @(adminSettings.IsRuntimeDllFound ? "Yes" : "No")</li>
+        </ul>
+    </div>
+}
+
+@using (Html.BeginForm("Run", "Migrate", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <label>Site URL</label><br />
+        @Html.TextBoxFor(m => m.SiteUrl, new { style = "width: 480px" })
+    </div>
+
+    <div>
+        <label>Library Title</label><br />
+        @Html.TextBoxFor(m => m.LibraryTitle, new { style = "width: 480px" })
+    </div>
+
+    <div>
+        <label>Domain</label><br />
+        @Html.TextBoxFor(m => m.Domain, new { style = "width: 240px" })
+    </div>
+
+    <div>
+        <label>User</label><br />
+        @Html.TextBoxFor(m => m.UserName, new { style = "width: 240px" })
+    </div>
+
+    <div>
+        <label>Password</label><br />
+        @Html.PasswordFor(m => m.Password, new { style = "width: 240px" })
+    </div>
+
+    <div>
+        <label>Modified Since (UTC)</label><br />
+        @Html.TextBoxFor(m => m.ModifiedSinceUtc, "{0:yyyy-MM-ddTHH:mm:ss}", new { style = "width: 240px" })
+    </div>
+
+    <br />
+    <button type="submit">Run Migration</button>
+}
+
+@if (result != null)
+{
+    <hr />
+    <h3>Result</h3>
+    <ul>
+        <li>Processed: @result.ProcessedCount</li>
+        <li>Inserted/Updated: @result.InsertedOrUpdatedCount</li>
+        <li>Skipped non-PDF: @result.SkippedNonPdfCount</li>
+        <li>Errors: @result.ErrorCount</li>
+        <li>Last error: @result.LastError</li>
+    </ul>
+}
